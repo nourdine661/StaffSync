@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile | StaffSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script>
+    (() => {
+      const saved = localStorage.getItem('theme_preference');
+      if (saved === 'dark') document.documentElement.classList.add('theme-dark');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body class="dashboard-body">
+  <main class="container dashboard-layout">
+    <header class="dashboard-header">
+      <div>
+        <p class="eyebrow">Employee Dashboard</p>
+        <h1>My Workspace</h1>
+      </div>
+      <button id="logoutBtn" class="btn btn-ghost" type="button">Logout</button>
+    </header>
+
+    <section class="employee-shell reveal-up">
+      <aside class="employee-sidebar">
+        <div class="mini-profile">
+          <img id="profileAvatar" class="avatar" alt="Profile photo" />
+          <h3 id="employeeName">Employee</h3>
+          <p id="employeeEmail" class="subtitle"></p>
+          <button id="editProfileBtn" class="btn btn-primary full" type="button">Edit Profile</button>
+        </div>
+
+        <nav class="tab-list" aria-label="Employee tabs">
+          <button class="tab-btn active" data-tab="tasks" type="button">My Tasks</button>
+          <button class="tab-btn" data-tab="projects" type="button">My Projects</button>
+          <button class="tab-btn" data-tab="presences" type="button">My Presence</button>
+          <button class="tab-btn" data-tab="performances" type="button">My Performance</button>
+        </nav>
+      </aside>
+
+      <div class="employee-content">
+        <section id="tab-tasks" class="tab-panel active">
+          <div class="card">
+            <h2>My Tasks</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="tasksBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-projects" class="tab-panel">
+          <div class="card">
+            <h2>My Projects</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Department</th>
+                    <th>Budget</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="projectsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-presences" class="tab-panel">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h2>My Presence</h2>
+                <p class="subtitle" id="presenceStatusText">No active shift</p>
+              </div>
+              <button class="btn btn-primary" id="toggleShiftBtn" type="button">Start shift</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Enter</th>
+                    <th>End</th>
+                    <th>Overtime</th>
+                    <th>Delay (hrs)</th>
+                  </tr>
+                </thead>
+                <tbody id="presencesBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-performances" class="tab-panel">
+          <div class="card">
+            <h2>My Performance</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Month</th>
+                    <th>Augmentation</th>
+                    <th>Tasks</th>
+                    <th>Deadlines Met</th>
+                  </tr>
+                </thead>
+                <tbody id="performancesBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <p id="message" class="message" aria-live="polite"></p>
+
+    <div id="taskModal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow">Task</p>
+            <h3 id="taskModalTitle">Task Details</h3>
+          </div>
+          <button type="button" class="btn btn-ghost" id="closeTaskModal">Close</button>
+        </header>
+        <div class="modal-body">
+          <p id="taskModalDescription" class="subtitle"></p>
+          <div class="detail-grid">
+            <div><strong>Start:</strong> <span id="taskModalStart">-</span></div>
+            <div><strong>End:</strong> <span id="taskModalEnd">-</span></div>
+            <div><strong>Status:</strong> <span id="taskModalStatus">-</span></div>
+          </div>
+          <label class="mt-2">
+            <span>Update status</span>
+            <select id="taskStatusSelect">
+              <option value="not_started">Didn't start</option>
+              <option value="in_progress">In progress</option>
+              <option value="done">Done</option>
+            </select>
+          </label>
+        </div>
+        <footer class="modal-footer">
+          <button type="button" class="btn btn-primary" id="saveTaskStatus">Save status</button>
+        </footer>
+      </div>
+    </div>
+
+    <div id="projectModal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow">Project</p>
+            <h3 id="projectModalTitle">Project Details</h3>
+          </div>
+          <button type="button" class="btn btn-ghost" id="closeProjectModal">Close</button>
+        </header>
+        <div class="modal-body detail-grid">
+          <div><strong>Department:</strong> <span id="projectModalDept">-</span></div>
+          <div><strong>Budget:</strong> <span id="projectModalBudget">-</span></div>
+          <div><strong>Status:</strong> <span id="projectModalStatus">-</span></div>
+          <div><strong>Start:</strong> <span id="projectModalStart">-</span></div>
+          <div><strong>End:</strong> <span id="projectModalEnd">-</span></div>
+          <div style="grid-column: span 2;"><strong>Description:</strong> <span id="projectModalDescription">-</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="profileModal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow">Profile</p>
+            <h3>Edit Profile</h3>
+          </div>
+          <button type="button" class="btn btn-ghost" id="closeProfileModal">Close</button>
+        </header>
+        <form id="profileForm" class="modal-body form-grid">
+          <label>
+            <span>Email</span>
+            <input type="email" id="profileEmail" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="text" id="profilePassword" placeholder="Leave blank to keep" />
+          </label>
+          <label>
+            <span>Photo URL</span>
+            <input type="text" id="profilePhoto" placeholder="https://..." />
+          </label>
+          <div class="inline">
+            <button type="submit" class="btn btn-primary">Save profile</button>
+            <button type="button" class="btn btn-ghost" id="cancelProfile">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="./js/theme.js"></script>
+  <script type="module" src="./js/employee.js"></script>
+</body>
+</html>

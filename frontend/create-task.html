@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Task | StaffSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script>
+    (() => {
+      const saved = localStorage.getItem('theme_preference');
+      if (saved === 'dark') document.documentElement.classList.add('theme-dark');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body class="dashboard-body">
+  <main class="container dashboard-layout">
+    <header class="dashboard-header">
+      <div>
+        <p class="eyebrow">Admin</p>
+        <h1>Create Task</h1>
+      </div>
+      <a class="btn btn-ghost" href="./admin.html">Back to Admin</a>
+    </header>
+
+    <section class="card reveal-up" style="max-width: 820px;">
+      <p class="subtitle">Select one or more employees to assign the new task. A separate task entry will be created for each selected employee.</p>
+      <form id="createTaskForm" class="form-grid">
+        <label>
+          <span>Title</span>
+          <input id="ctTitle" type="text" placeholder="Task title" required />
+        </label>
+        <label>
+          <span>Description</span>
+          <input id="ctDesc" type="text" placeholder="Optional" />
+        </label>
+        <label>
+          <span>Start Date</span>
+          <input id="ctStart" type="date" required />
+        </label>
+        <label>
+          <span>End Date</span>
+          <input id="ctEnd" type="date" />
+        </label>
+        <label>
+          <span>Assign Employees</span>
+          <div class="stack-vertical">
+            <div class="inline">
+              <select id="ctEmployeeSelect"></select>
+              <button class="btn btn-primary" id="ctAddEmployee" type="button">Add</button>
+            </div>
+            <p class="hint">Pick one employee at a time, click Add, and remove from the list if needed.</p>
+            <div id="ctSelectedList" class="chip-list" aria-live="polite"></div>
+          </div>
+        </label>
+        <button class="btn btn-primary" type="submit">Create Task</button>
+      </form>
+      <p id="ctMessage" class="message" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script type="module" src="./js/theme.js"></script>
+  <script type="module" src="./js/create-task.js"></script>
+</body>
+</html>

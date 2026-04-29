@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>StaffSync | Workforce Portal</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="./css/style.css" />
+	<script>
+		(() => {
+			const saved = localStorage.getItem('theme_preference');
+			if (saved === 'dark') document.documentElement.classList.add('theme-dark');
+		})();
+	</script>
+</head>
+<body class="home-body">
+	<script type="module" src="./js/theme.js"></script>
+	<div class="bg-shape bg-shape-1"></div>
+	<div class="bg-shape bg-shape-2"></div>
+
+	<main class="container hero">
+		<header class="topbar">
+			<div class="brand">StaffSync</div>
+			<a class="btn btn-ghost" href="./login.html">Login</a>
+		</header>
+
+		<section class="hero-content reveal-up">
+			<p class="eyebrow">Secure Employee Platform</p>
+			<h1>Track Work. Manage Teams. Move Faster.</h1>
+			<p class="subtitle">
+				One portal for employee data, projects, tasks, presence, and performance.
+				Sign in to continue to your personalized dashboard.
+			</p>
+			<div class="hero-actions">
+				<a class="btn btn-primary" href="./login.html">Open Login</a>
+				<a class="btn btn-ghost" href="#features">See Features</a>
+			</div>
+		</section>
+
+		<section id="features" class="feature-grid reveal-up-delay">
+			<article class="card">
+				<h3>Employee View</h3>
+				<p>Access your own profile and records through protected endpoints.</p>
+			</article>
+			<article class="card">
+				<h3>Admin View</h3>
+				<p>Manage and monitor complete employee information securely.</p>
+			</article>
+			<article class="card">
+				<h3>Role Aware</h3>
+				<p>Automatic redirect by role right after successful login.</p>
+			</article>
+		</section>
+	</main>
+	<script type="module" src="./js/auth.js"></script>
+</body>
+</html>

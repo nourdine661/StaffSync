@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | StaffSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script>
+    (() => {
+      const saved = localStorage.getItem('theme_preference');
+      if (saved === 'dark') document.documentElement.classList.add('theme-dark');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body class="dashboard-body">
+  <main class="container dashboard-layout">
+    <header class="dashboard-header">
+      <div>
+        <p class="eyebrow">Admin Dashboard</p>
+        <h1>Manage Team</h1>
+      </div>
+      <button id="logoutBtn" class="btn btn-ghost" type="button">Logout</button>
+    </header>
+
+    <div class="admin-tabs">
+      <button class="admin-tab-btn active" data-tab="employees" type="button">Employees</button>
+      <button class="admin-tab-btn" data-tab="projects" type="button">Projects</button>
+      <button class="admin-tab-btn" data-tab="tasks" type="button">Tasks</button>
+    </div>
+
+    <section id="tab-employees" class="grid-2 reveal-up admin-grid admin-tab active">
+      <div class="card">
+        <div class="card-header">
+          <h2>Employees</h2>
+          <div class="search-inline">
+            <input id="employeeSearch" type="search" placeholder="Search by name or email" />
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody id="employeesTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="stack gap">
+        <div class="card">
+          <div class="detail-grid">
+            <div>
+              <p class="eyebrow">Profile</p>
+              <div class="inline" style="align-items: center; gap: 12px;">
+                <img id="detailAvatar" class="avatar" alt="Profile photo" />
+                <div>
+                  <h3 id="detailName">Select an employee</h3>
+                  <p id="detailEmail" class="subtitle">-</p>
+                  <p class="subtitle" id="detailRole">-</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <p class="eyebrow">Created</p>
+              <p id="detailCreated" class="subtitle">-</p>
+            </div>
+          </div>
+
+          <div class="card nested-card">
+            <div class="card-header">
+              <h3>Tasks</h3>
+              <p class="subtitle">Assigned to this employee</p>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="tasksBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card nested-card">
+            <div class="card-header">
+              <h3>Projects Owned</h3>
+              <p class="subtitle">Projects where this employee is owner</p>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Department</th>
+                    <th>Budget</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="projectsBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card nested-card">
+            <div class="card-header">
+              <h3>Projects Participant</h3>
+              <p class="subtitle">All projects this employee is part of</p>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Project ID</th>
+                    <th>Department</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="projectsMemberBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card nested-card">
+            <div class="card-header">
+              <h3>Presence</h3>
+              <p class="subtitle">Latest shifts</p>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Enter</th>
+                    <th>End</th>
+                    <th>Overtime</th>
+                    <th>Delay (hrs)</th>
+                  </tr>
+                </thead>
+                <tbody id="presenceBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-projects" class="card reveal-up admin-tab">
+      <div class="card-header">
+        <div>
+          <h2>Projects</h2>
+          <p class="subtitle">Browse all projects, view details, assign people</p>
+        </div>
+        <a class="btn btn-primary" href="./create-project.html">Add New Project</a>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Department</th>
+              <th>Owner</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="projectsAllBody"></tbody>
+        </table>
+      </div>
+
+      <div class="detail-grid" style="margin-top: 16px;">
+        <div>
+          <p class="eyebrow">Project</p>
+          <h3 id="projectDetailName">Select a project</h3>
+        </div>
+        <div>
+          <p class="eyebrow">Department</p>
+          <p id="projectDetailDept" class="subtitle">-</p>
+        </div>
+        <div>
+          <p class="eyebrow">Budget</p>
+          <p id="projectDetailBudget" class="subtitle">-</p>
+        </div>
+        <div style="grid-column: span 2;">
+          <p class="eyebrow">Description</p>
+          <p id="projectDetailDescription" class="subtitle">-</p>
+        </div>
+        <div>
+          <p class="eyebrow">Status</p>
+          <p id="projectDetailStatus" class="subtitle">-</p>
+        </div>
+        <div>
+          <p class="eyebrow">Start</p>
+          <p id="projectDetailStart" class="subtitle">-</p>
+        </div>
+        <div>
+          <p class="eyebrow">End</p>
+          <p id="projectDetailEnd" class="subtitle">-</p>
+        </div>
+        <div>
+          <p class="eyebrow">Owner</p>
+          <p id="projectDetailOwner" class="subtitle">-</p>
+        </div>
+      </div>
+
+      <div class="table-wrap" style="margin-top: 12px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody id="projectAssignmentsBody"></tbody>
+        </table>
+      </div>
+
+      <form id="projectAssignForm" class="form-grid" style="margin-top: 14px;">
+        <label>
+          <span>Assign Employee</span>
+          <select id="projectAssignSelect" required></select>
+        </label>
+        <button class="btn btn-primary" type="submit">Assign to Project</button>
+      </form>
+    </section>
+
+    <section id="tab-tasks" class="card reveal-up admin-tab">
+      <div class="card-header">
+        <div>
+          <h2>Create Task</h2>
+          <p class="subtitle">Assign directly to a chosen employee</p>
+        </div>
+        <a class="btn btn-primary" href="./create-task.html">Add New Task</a>
+      </div>
+      <div class="table-wrap" style="margin-top: 8px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Employee</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tasksAllBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <p id="message" class="message" aria-live="polite"></p>
+  </main>
+
+  <script type="module" src="./js/theme.js"></script>
+  <script type="module" src="./js/admin.js"></script>
+</body>
+</html>

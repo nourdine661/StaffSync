@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | StaffSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script>
+    (() => {
+      const saved = localStorage.getItem('theme_preference');
+      if (saved === 'dark') document.documentElement.classList.add('theme-dark');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body class="auth-body">
+  <main class="container auth-layout">
+    <section class="auth-hero">
+      <a class="back-link" href="./homepage.html">← Home</a>
+      <div class="hero-copy">
+        <p class="eyebrow">StaffSync</p>
+        <h1>Welcome back</h1>
+        <p class="subtitle">Access your workspace, tasks, and projects in one place.</p>
+      </div>
+    </section>
+
+    <section class="auth-card reveal-up glassy">
+      <div class="card-header between">
+        <div>
+          <p class="eyebrow">Sign in</p>
+          <h2>Employee Login</h2>
+        </div>
+        <div class="pill">Secure Access</div>
+      </div>
+
+      <form id="loginForm" class="form-grid">
+        <label>
+          <span>Email</span>
+          <input id="email" type="email" placeholder="name@company.com" required />
+        </label>
+
+        <label>
+          <span>Password</span>
+          <input id="password" type="password" placeholder="••••••••" required />
+        </label>
+
+        <button class="btn btn-primary full" type="submit">Sign In</button>
+      </form>
+
+      <p class="hint">Admin? Use boss@company.com / boss123 from the seed data.</p>
+      <p id="message" class="message" aria-live="polite"></p>
+    </section>
+  </main>
+  <script type="module" src="./js/theme.js"></script>
+  <script type="module" src="./js/login.js"></script>
+</body>
+</html>
