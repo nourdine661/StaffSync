@@ -1,7 +1,10 @@
-# Our First Big Project Report
-
+# Our First Project 
+**university:**Amar University Laghouat
+**Under supervision:**saida sara boudouh 
 **Group Members:** Benomrane Nourdine, ben adballah nour aicha,terfaia anas ,amal guenda athmani chahinaz.
 **Date:** [2026/2027]
+ذ
+<br><br><br><br>
 
 ## 1. What We Made
 
@@ -59,8 +62,10 @@ The database is where everything is stored. Without it, all the projects and emp
 
 <br><br><br><br>
 
+## 6. github repo link:https:  //github.com/nourdine661/StaffSync/edit/main/project-report.md
 
-## 6. Contribution Table
+
+## 7. Contribution Table
 
 | Name                      | Contribution                                                  |
 | :------------------------ | :------------------------------------------------------------ |
@@ -71,6 +76,6 @@ The database is where everything is stored. Without it, all the projects and emp
 | athmani chahinaz          | Backend (Routes for Performances, Presences, Employee-Projects) |
 
 
-## 7. What We Learned
+## 8. What We Learned
 
 This project was a huge learning experience for our group. It was the first time we built a complete application from front to back. Getting the frontend and backend to talk to each other correctly was kinda hard at first, but it was really cool to see it finally work. We feel like we have a much better understanding of how modern websites are built now. The project isn't perfect, but we're proud of what we were able to accomplish together.
